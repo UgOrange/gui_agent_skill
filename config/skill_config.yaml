@@ -1,0 +1,79 @@
+# GUI Agent Skill configuration
+
+# Default model provider
+default_provider: local
+
+# Providerless mode: disable execute/continue and allow only direct tap/click control
+tap_only_mode: false
+
+# Default device ID (null means auto-detect)
+default_device_id: null
+
+# Default maximum execution steps
+default_max_steps: 20
+
+# Default execute/continue timeout in seconds (can be overridden by --timeout-sec)
+default_operation_timeout_sec: 180
+
+# Session settings
+session:
+  # Session storage directory
+  storage_dir: ~/.gui_agent_skill/sessions
+  # Session expiration in seconds
+  expire_seconds: 3600
+
+# Output settings
+output:
+  # Output directory
+  dir: ~/.gui_agent_skill/outputs
+  # Save screenshot to disk
+  save_screenshot: true
+  # Generate caption from screenshot
+  enable_caption: true
+
+# Provider settings
+providers:
+  local:
+    adapter: gelab_local
+    model_provider: local
+    model_name: gelab-zero-4b-preview
+    description: Local Ollama GELab-Zero model
+
+  stepfun:
+    adapter: gelab_local
+    model_provider: stepfun
+    model_name: step-1v-8k
+    api_key: ${STEPFUN_API_KEY}
+    description: Stepfun Step-1V vision model
+
+  zhipu:
+    adapter: open_autoglm
+    model_name: glm-4.5v
+    api_key: ${ZHIPUAI_API_KEY}
+    base_url: https://open.bigmodel.cn/api/paas/v4/
+    description: Zhipu GLM-4.5V vision model
+
+  qwen:
+    adapter: http
+    model_name: qwen-vl-max
+    api_key: ${DASHSCOPE_API_KEY}
+    base_url: https://dashscope.aliyuncs.com/compatible-mode/v1
+    description: Alibaba Qwen-VL vision model
+
+# gui_agent_forge project path (auto-detect when null)
+gui_agent_forge_path: null
+
+# Device settings
+device:
+  adb_path: adb
+  timeout_sec: 30
+  adb_keyboard:
+    ime_id: com.android.adbkeyboard/.AdbIME
+
+# State collection settings
+state:
+  include_screenshot: true
+  include_notifications: true
+  include_ui_xml: false
+  caption:
+    enabled: true
